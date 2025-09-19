@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قهرمانان اکشن - فیگورهای اکشن درجه یک</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Vazirmatn', sans-serif; direction: rtl; }
+        .hero-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .cart-slide { transform: translateX(-100%); transition: transform 0.3s ease; }
+        .cart-slide.open { transform: translateX(0); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">🦸 کامیک باز</h1>
+                </div>
+                <div class="hidden md:flex space-x-8 space-x-reverse">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 font-medium">خانه</a>
+                    <a href="#products" class="text-gray-700 hover:text-blue-600 font-medium">محصولات</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600 font-medium">درباره ما</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium">تماس</a>
+                </div>
+                <button onclick="toggleCart()" class="relative bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    🛒 سبد خرید (<span id="cart-count">0</span>)
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-5xl font-bold mb-6">فیگورهای اکشن درجه یک</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">مجموعه منحصر به فرد ما از فیگورهای اکشن با کیفیت بالا از فیلم‌ها، کمیک‌ها و بازی‌های مورد علاقه‌تان را کشف کنید.</p>
+            <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                همین حالا خرید کنید
+            </button>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-900">محصولات ویژه</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-3xl font-bold mb-8 text-gray-900">چرا کامیک باز را انتخاب کنید؟</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-6">
+                        <div class="text-4xl mb-4">⭐</div>
+                        <h4 class="text-xl font-semibold mb-2">کیفیت درجه یک</h4>
+                        <p class="text-gray-600">فیگورهای اصل و با کیفیت بالا با جزئیات فوق‌العاده و ساخت عالی.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-4xl mb-4">🚚</div>
+                        <h4 class="text-xl font-semibold mb-2">ارسال سریع</h4>
+                        <p class="text-gray-600">تحویل سریع و امن تا درب منزل شما همراه با کد رهگیری.</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-4xl mb-4">🛡️</div>
+                        <h4 class="text-xl font-semibold mb-2">ضمانت رضایت</h4>
+                        <p class="text-gray-600">۳۰ روز ضمانت بازگشت کالا و پشتیبانی عالی مشتریان.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gray-100 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold mb-4 text-gray-900">با ما در تماس باشید</h3>
+                <p class="text-gray-600">سوالی دارید؟ خوشحال می‌شویم از شما بشنویم!</p>
+            </div>
+            <div class="max-w-md mx-auto">
+                <form onsubmit="handleContact(event)" class="space-y-4">
+                    <input type="text" placeholder="نام شما" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right">
+                    <input type="email" placeholder="ایمیل شما" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right">
+                    <textarea placeholder="پیام شما" rows="4" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-right"></textarea>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                        ارسال پیام
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p>&copy; 1404 کامیک باز. تمامی حقوق محفوظ است.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 left-0 h-full w-96 bg-white shadow-2xl z-50 cart-slide">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">سبد خرید</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+        </div>
+        <div id="cart-items" class="p-6 flex-1 overflow-y-auto">
+            <p class="text-gray-500 text-center">سبد خرید شما خالی است</p>
+        </div>
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">مجموع: <span id="cart-total">0</span> تومان</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                تسویه حساب
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" onclick="toggleCart()"></div>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "مرد عنکبوتی کلاسیک",
+                price: 299000,
+                image: "🕷️",
+                description: "فیگور اکشن مرد عنکبوتی با لوازم جانبی تار"
+            },
+            {
+                id: 2,
+                name: "بتمن شوالیه تاریکی",
+                price: 349000,
+                image: "🦇",
+                description: "فیگور بتمن با جزئیات کامل همراه با شنل و کمربند ابزار"
+            },
+            {
+                id: 3,
+                name: "واندروومن",
+                price: 329000,
+                image: "👸",
+                description: " واندروومن نمادین با کمند و سپر"
+            },
+            {
+                id: 4,
+                name: "مرد آهنی مارک ۸۵",
+                price: 399000,
+                image: "🤖",
+                description: "فیگور مرد آهنی درجه یک با راکتور قوسی LED"
+            },
+            {
+                id: 5,
+                name: "کاپیتان آمریکا",
+                price: 319000,
+                image: "🛡️",
+                description: "اولین انتقام‌جو با سپر ویبرانیومی"
+            },
+            {
+                id: 6,
+                name: "هالک",
+                price: 369000,
+                image: "💚",
+                description: "هالک با قابلیت بازسازی "
+            }
+        ];
+
+        let cart = [];
+
+        // Load products
+        function loadProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map(product => `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                    <div class="p-8 text-center bg-gradient-to-br from-blue-50 to-purple-50">
+                        <div class="text-6xl mb-4">${product.image}</div>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-xl font-semibold mb-2">${product.name}</h4>
+                        <p class="text-gray-600 mb-4">${product.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-blue-600">${product.price.toLocaleString()} تومان</span>
+                            <button onclick="addToCart(${product.id})" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                افزودن به سبد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCartDisplay();
+            showNotification(`${product.name} به سبد خرید اضافه شد!`);
+        }
+
+        // Update cart display
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            cartTotal.textContent = totalPrice.toLocaleString();
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500 text-center">سبد خرید شما خالی است</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between mb-4 p-4 bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <span class="text-2xl ml-3">${item.image}</span>
+                            <div>
+                                <h5 class="font-semibold">${item.name}</h5>
+                                <p class="text-sm text-gray-600">${item.price.toLocaleString()} تومان × ${item.quantity}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">-</button>
+                            <span class="mx-2 font-semibold">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="bg-gray-200 text-gray-700 w-8 h-8 rounded-full hover:bg-gray-300">+</button>
+                            <button onclick="removeFromCart(${item.id})" class="mr-2 text-red-500 hover:text-red-700">🗑️</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartDisplay();
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('hidden');
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('سبد خرید شما خالی است!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`از خرید شما متشکریم! مجموع: ${total.toLocaleString()} تومان\n\nاین یک فروشگاه نمونه است. در فروشگاه واقعی، شما به درگاه پرداخت امن هدایت می‌شوید.`);
+            
+            // Clear cart after "purchase"
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+        }
+
+        // Handle contact form
+        function handleContact(event) {
+            event.preventDefault();
+            showNotification('از پیام شما متشکریم! به زودی با شما تماس خواهیم گرفت.');
+            event.target.reset();
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-20 left-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProducts();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'981a5b72d594bba1',t:'MTc1ODI5ODI2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
+
